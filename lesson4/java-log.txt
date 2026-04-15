@@ -1,0 +1,40 @@
+Script started on 2026-04-15 00:01:47+10:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="130" LINES="54"]
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ java --version
+[?2004lopenjdk 21.0.10 2026-01-20
+OpenJDK Runtime Environment (build 21.0.10+7-Debian-1deb13u1)
+OpenJDK 64-Bit Server VM (build 21.0.10+7-Debian-1deb13u1, mixed mode, sharing)
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ [7msudo update-alternatives --config java[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo update-alternatives --config java
+[?2004l[sudo] password for user: 
+There are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                         Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-21-openjdk-amd64/bin/java   2111      auto mode
+  1            /opt/jdk-25.0.2/bin/java                      1         manual mode
+  2            /usr/lib/jvm/java-21-openjdk-amd64/bin/java   2111      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 1
+update-alternatives: using /opt/jdk-25.0.2/bin/java to provide /usr/bin/java (java) in manual mode
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ java --version
+[?2004ljava 25.0.2 2026-01-20 LTS
+Java(TM) SE Runtime Environment (build 25.0.2+10-LTS-69)
+Java HotSpot(TM) 64-Bit Server VM (build 25.0.2+10-LTS-69, mixed mode, sharing)
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ java --versionsudo update-alternatives --config java
+[?2004lThere are 2 choices for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                         Priority   Status
+------------------------------------------------------------
+  0            /usr/lib/jvm/java-21-openjdk-amd64/bin/java   2111      auto mode
+* 1            /opt/jdk-25.0.2/bin/java                      1         manual mode
+  2            /usr/lib/jvm/java-21-openjdk-amd64/bin/java   2111      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 0
+update-alternatives: using /usr/lib/jvm/java-21-openjdk-amd64/bin/java to provide /usr/bin/java (java) in auto mode
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ sudo update-alternatives --config java[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[24Pjava --version
+[?2004lopenjdk 21.0.10 2026-01-20
+OpenJDK Runtime Environment (build 21.0.10+7-Debian-1deb13u1)
+OpenJDK 64-Bit Server VM (build 21.0.10+7-Debian-1deb13u1, mixed mode, sharing)
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ exit
+[?2004lexit
+
+Script done on 2026-04-15 00:03:31+10:00 [COMMAND_EXIT_CODE="0"]
