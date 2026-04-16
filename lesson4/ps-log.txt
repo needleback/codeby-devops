@@ -1,0 +1,170 @@
+Script started on 2026-04-14 22:55:24+10:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="130" LINES="55"]
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ ps aux
+[?2004lUSER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.0  0.3  23740 14488 ?        Ss   Apr13   0:00 /sbin/init
+root           2  0.0  0.0      0     0 ?        S    Apr13   0:00 [kthreadd]
+root           3  0.0  0.0      0     0 ?        S    Apr13   0:00 [pool_workqueue_release]
+root           4  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-kvfree_rcu_reclaim]
+root           5  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-rcu_gp]
+root           6  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-sync_wq]
+root           7  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-slub_flushwq]
+root           8  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-netns]
+root          10  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/0:0H-events_highpri]
+root          12  0.0  0.0      0     0 ?        I    Apr13   0:00 [kworker/u8:0-ipv6_addrconf]
+root          13  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-mm_percpu_wq]
+root          14  0.0  0.0      0     0 ?        I    Apr13   0:00 [rcu_tasks_kthread]
+root          15  0.0  0.0      0     0 ?        I    Apr13   0:00 [rcu_tasks_rude_kthread]
+root          16  0.0  0.0      0     0 ?        I    Apr13   0:00 [rcu_tasks_trace_kthread]
+root          17  0.0  0.0      0     0 ?        S    Apr13   0:00 [ksoftirqd/0]
+root          18  0.0  0.0      0     0 ?        I    Apr13   0:23 [rcu_preempt]
+root          19  0.0  0.0      0     0 ?        S    Apr13   0:00 [rcu_exp_par_gp_kthread_worker/0]
+root          20  0.0  0.0      0     0 ?        S    Apr13   0:00 [rcu_exp_gp_kthread_worker]
+root          21  0.0  0.0      0     0 ?        S    Apr13   0:00 [migration/0]
+root          22  0.0  0.0      0     0 ?        S    Apr13   0:00 [idle_inject/0]
+root          23  0.0  0.0      0     0 ?        S    Apr13   0:00 [cpuhp/0]
+root          24  0.0  0.0      0     0 ?        S    Apr13   0:00 [cpuhp/1]
+root          25  0.0  0.0      0     0 ?        S    Apr13   0:00 [idle_inject/1]
+root          26  0.0  0.0      0     0 ?        S    Apr13   0:00 [migration/1]
+root          27  0.0  0.0      0     0 ?        S    Apr13   0:00 [ksoftirqd/1]
+root          34  0.0  0.0      0     0 ?        S    Apr13   0:00 [kdevtmpfs]
+root          35  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-inet_frag_wq]
+root          36  0.0  0.0      0     0 ?        S    Apr13   0:00 [kauditd]
+root          37  0.0  0.0      0     0 ?        S    Apr13   0:00 [khungtaskd]
+root          38  0.0  0.0      0     0 ?        S    Apr13   0:00 [oom_reaper]
+root          39  0.0  0.0      0     0 ?        I    Apr13   0:00 [kworker/u9:1-ext4-rsv-conversion]
+root          40  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-writeback]
+root          42  0.0  0.0      0     0 ?        S    Apr13   0:00 [kcompactd0]
+root          43  0.0  0.0      0     0 ?        SN   Apr13   0:00 [ksmd]
+root          44  0.0  0.0      0     0 ?        SN   Apr13   0:00 [khugepaged]
+root          45  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-kintegrityd]
+root          46  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-kblockd]
+root          47  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-blkcg_punt_bio]
+root          48  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/9-acpi]
+root          50  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-tpm_dev_wq]
+root          51  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-edac-poller]
+root          52  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-devfreq_wq]
+root          53  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-quota_events_unbound]
+root          54  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/1:1H-kblockd]
+root          55  0.0  0.0      0     0 ?        S    Apr13   0:00 [kswapd0]
+root          63  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-kthrotld]
+root          67  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/24-pciehp]
+root          68  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/25-pciehp]
+root          69  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/26-pciehp]
+root          70  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/27-pciehp]
+root          71  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/28-pciehp]
+root          72  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/29-pciehp]
+root          73  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/30-pciehp]
+root          74  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/31-pciehp]
+root          75  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/32-pciehp]
+root          76  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/33-pciehp]
+root          77  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/34-pciehp]
+root          78  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/35-pciehp]
+root          79  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/36-pciehp]
+root          80  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/37-pciehp]
+root          81  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/38-pciehp]
+root          82  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/39-pciehp]
+root          83  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/40-pciehp]
+root          84  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/41-pciehp]
+root          85  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/42-pciehp]
+root          86  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/43-pciehp]
+root          87  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/44-pciehp]
+root          88  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/45-pciehp]
+root          89  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/46-pciehp]
+root          90  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/47-pciehp]
+root          91  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/48-pciehp]
+root          92  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/49-pciehp]
+root          93  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/50-pciehp]
+root          94  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/51-pciehp]
+root          95  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/52-pciehp]
+root          96  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/53-pciehp]
+root          97  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/54-pciehp]
+root          98  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/55-pciehp]
+root          99  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-acpi_thermal_pm]
+root         100  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-mld]
+root         101  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-ipv6_addrconf]
+root         102  0.0  0.0      0     0 ?        I    Apr13   0:00 [kworker/u8:1-ipv6_addrconf]
+root         107  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-kstrp]
+root         109  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/u11:0]
+root         110  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/u12:0]
+root         111  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/u13:0]
+root         217  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/0:1H-kblockd]
+root         228  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-mpt_poll_0]
+root         229  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-mpt/0]
+root         230  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-ata_sff]
+root         231  0.0  0.0      0     0 ?        S    Apr13   0:00 [scsi_eh_0]
+root         232  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-scsi_tmf_0]
+root         233  0.0  0.0      0     0 ?        S    Apr13   0:00 [scsi_eh_1]
+root         234  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-scsi_tmf_1]
+root         236  0.0  0.0      0     0 ?        S    Apr13   0:00 [scsi_eh_2]
+root         237  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-scsi_tmf_2]
+root         245  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-kdmflush/254:0]
+root         246  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-kdmflush/254:1]
+root         254  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/1:2H-kblockd]
+root         280  0.0  0.0      0     0 ?        S    Apr13   0:00 [jbd2/dm-0-8]
+root         281  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-ext4-rsv-conversion]
+root         308  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/59-vmw_vmci]
+root         309  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/60-vmw_vmci]
+root         335  0.0  0.6  59200 24624 ?        Ss   Apr13   0:00 /usr/lib/systemd/systemd-journald
+root         359  0.0  0.2  35796 10560 ?        Ss   Apr13   0:00 /usr/lib/systemd/systemd-udevd
+root         387  0.0  0.0      0     0 ?        S    Apr13   0:00 [psimon]
+root         438  0.0  0.0      0     0 ?        S    Apr13   0:00 [irq/16-vmwgfx]
+root         439  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-ttm]
+root         470  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-cryptd]
+root         572  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-nfit]
+root         575  0.0  0.0      0     0 ?        S    Apr13   0:00 [jbd2/sda1-8]
+root         576  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-ext4-rsv-conversion]
+root         698  0.0  0.0   6856  3020 ?        Ss   Apr13   0:00 /usr/sbin/cron -f
+message+     699  0.0  0.1   8428  5024 ?        Ss   Apr13   0:00 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nop
+root         718  0.0  0.2  19048  9192 ?        Ss   Apr13   0:00 /usr/lib/systemd/systemd-logind
+root         720  0.0  0.2  20840 11128 ?        Ss   Apr13   0:00 /usr/bin/VGAuthService
+root         722  0.0  0.2 253416 10676 ?        Ssl  Apr13   0:26 /usr/bin/vmtoolsd
+dhcpcd       726  0.0  0.1  10504  4416 ?        S    Apr13   0:00 dhcpcd: ens160 [ip4] [ip6]
+root         727  0.0  0.0  10512  2620 ?        S    Apr13   0:00 dhcpcd: [privileged proxy] ens160 [ip4] [ip6]
+dhcpcd       728  0.0  0.0  10488  2248 ?        S    Apr13   0:00 dhcpcd: [network proxy] ens160 [ip4] [ip6]
+dhcpcd       730  0.0  0.0  10488  2184 ?        S    Apr13   0:00 dhcpcd: [control proxy] ens160 [ip4] [ip6]
+root         826  0.0  0.0   8156  2860 tty1     Ss+  Apr13   0:00 /sbin/agetty -o -- \u --noreset --noclear - linux
+root         834  0.0  0.0      0     0 ?        I<   Apr13   0:00 [kworker/R-cfg80211]
+dhcpcd       847  0.0  0.0  10512  2472 ?        S    Apr13   0:00 dhcpcd: [DHCP6 proxy] fe80::d2f6:61c7:94fe:8140
+dhcpcd       849  0.0  0.0  10512  2408 ?        S    Apr13   0:00 dhcpcd: [BPF ARP] ens160 10.0.254.132
+dhcpcd       875  0.0  0.0  10512  2408 ?        S    Apr13   0:00 dhcpcd: [BOOTP proxy] 10.0.254.132
+systemd+     893  0.0  0.2  91868  8108 ?        Ssl  Apr13   0:00 /usr/lib/systemd/systemd-timesyncd
+root        1251  0.0  0.1  11764  8024 ?        Ss   Apr13   0:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+root        1617  0.0  0.0      0     0 ?        I    00:53   0:37 [kworker/0:2-events]
+root        3801  0.0  0.0      0     0 ?        S    18:26   0:00 [psimon]
+user        3803  0.0  0.3  21920 12424 ?        Ss   18:26   0:00 /usr/lib/systemd/systemd --user
+user        3805  0.0  0.0  24616  3840 ?        S    18:26   0:00 (sd-pam)
+root        3967  0.0  0.0      0     0 ?        I    19:41   0:00 [kworker/u10:1-events_unbound]
+root        4419  0.0  0.0      0     0 ?        I    21:26   0:00 [kworker/u9:3-events_unbound]
+root        4501  0.0  0.0      0     0 ?        I    21:50   0:00 [kworker/u9:0-events_unbound]
+root        4629  0.0  0.0      0     0 ?        I    22:05   0:00 [kworker/u10:0-kvfree_rcu_reclaim]
+root        4724  0.0  0.0      0     0 ?        I    22:35   0:00 [kworker/1:1-ata_sff]
+root        4738  0.0  0.0      0     0 ?        I    22:41   0:00 [kworker/1:0-events]
+root        4743  0.0  0.0      0     0 ?        I    22:45   0:00 [kworker/0:0-events]
+root        4764  0.0  0.0      0     0 ?        I    22:47   0:00 [kworker/u10:3-flush-254:0]
+root        4788  0.0  0.0      0     0 ?        I    22:50   0:00 [kworker/0:1-ata_sff]
+root        4814  0.1  0.0      0     0 ?        I    22:51   0:00 [kworker/1:2-ata_sff]
+root        4831  0.0  0.0      0     0 ?        I    22:54   0:00 [kworker/u10:2-flush-254:0]
+root        4832  0.0  0.3  19768 12748 ?        Ss   22:54   0:00 sshd-session: user [priv]
+user        4840  0.0  0.1  19884  7608 ?        S    22:54   0:00 sshd-session: user@pts/0
+user        4841  0.0  0.1   8936  5984 pts/0    Ss   22:54   0:00 -bash
+user        4855  0.0  0.0   5604  2352 pts/0    S+   22:55   0:00 script ps-log.txt
+user        4856  0.0  0.1   8740  5688 pts/1    Ss   22:55   0:00 bash -i
+user        4858  0.0  0.1   9384  4224 pts/1    R+   22:55   0:00 ps aux
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ ps -Fu $USER
+[?2004lUID          PID    PPID  C    SZ   RSS PSR STIME TTY          TIME CMD
+user        3803       1  0  5480 12424   0 18:26 ?        00:00:00 /usr/lib/systemd/systemd --user
+user        3805    3803  0  6154  3840   1 18:26 ?        00:00:00 (sd-pam)
+user        4840    4832  0  4971  7616   0 22:54 ?        00:00:00 sshd-session: user@pts/0
+user        4841    4840  0  2234  5984   0 22:54 pts/0    00:00:00 -bash
+user        4855    4841  0  1401  2352   0 22:55 pts/0    00:00:00 script ps-log.txt
+user        4856    4855  0  2185  5688   0 22:55 pts/1    00:00:00 bash -i
+user        4860    4856  0  2350  4272   1 22:55 pts/1    00:00:00 ps -Fu user
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ top &
+[?2004l[1] 4861
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ [?1l>kill -9 4861
+[?2004l
+[1]+  Stopped                 top
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ exit
+[?2004lexit
+
+Script done on 2026-04-14 22:56:05+10:00 [COMMAND_EXIT_CODE="0"]

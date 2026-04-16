@@ -1,0 +1,39 @@
+Script started on 2026-04-15 21:15:36+10:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="130" LINES="41"]
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ systemctl is-active nginx.service 
+[?2004lactive
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ systemctl is-enabled nginx.service 
+[?2004lenabled
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ sudo systemctl disable nginx.service 
+[?2004l[sudo] password for user: 
+Synchronizing state of nginx.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
+Executing: /usr/lib/systemd/systemd-sysv-install disable nginx
+Removed '/etc/systemd/system/multi-user.target.wants/nginx.service'.
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ sudo systemctl disable nginx.service [1P[1P[1P[1P[1P[1P[1P[1@s[1@t[1@o[1@p[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[?2004l[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ systemctl status nginx.service 
+[?2004l[?1h=○ nginx.service - A high performance web server and a reverse proxy server[m
+     Loaded: loaded (]8;;file://codeby-devops/usr/lib/systemd/system/nginx.service\/usr/lib/systemd/system/nginx.service]8;;\; [0;1;38:5:185mdisabled[0m; preset: [0;1;32menabled[0m)[m]8;;\
+     Active: inactive (dead)[m
+       Docs: ]8;;man:nginx(8)\man:nginx(8)]8;;\[m]8;;\
+[K[?1l>[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ sudo cp /usr/lib/systemd/system/nginx.service /ey[Ktc/systemd/system/nginx_needle.service
+[?2004l[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ sudo systemctl daemon-reload 
+[?2004l[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ sudo systemctr[Kl start nginx_needle.service 
+[?2004l[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ sudo systemctl enable nginx_needle.service 
+[?2004lCreated symlink '/etc/systemd/system/multi-user.target.wants/nginx_needle.service' → '/etc/systemd/system/nginx_needle.service'.
+[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ systemctl status nginx__[Kneedle.service 
+[?2004l[?1h=[0;1;32m●[0m nginx_needle.service - A high performance web server and a reverse proxy server[m
+     Loaded: loaded (]8;;file://codeby-devops/etc/systemd/system/nginx_needle.service\/etc/systemd/system/nginx_needle.service]8;;\; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)[m]8;;\
+     Active: [0;1;32mactive (running)[0m since Wed 2026-04-15 21:17:31 +10; 24s ago[m
+ Invocation: 2239946acac94394a359317f13c67974[m
+       Docs: ]8;;man:nginx(8)\man:nginx(8)]8;;\[m]8;;\
+   Main PID: 3100 (nginx)[m
+      Tasks: 3[0;38;5;245m (limit: 4653)[0m[m
+     Memory: 3M (peak: 3.2M)[m
+        CPU: 17ms[m
+     CGroup: /system.slice/nginx_needle.service[m
+             ├─[0;38;5;245m3100 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on;"[0m[m
+             ├─[0;38;5;245m3101 "nginx: worker process"[0m[m
+             └─[0;38;5;245m3102 "nginx: worker process"[0m[m
+[K[?1l>[?2004h]0;user@codeby-devops: ~[01;32muser@codeby-devops[00m:[01;34m~[00m$ exit
+[?2004lexit
+
+Script done on 2026-04-15 21:18:01+10:00 [COMMAND_EXIT_CODE="0"]
