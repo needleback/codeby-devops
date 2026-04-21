@@ -1,0 +1,26 @@
+Script started on 2026-04-20 10:50:19+00:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="130" LINES="45"]
+[?2004h]0;user@codeby-devops-server: ~[01;32muser@codeby-devops-server[00m:[01;34m~[00m$ sudo iptables -L --line-number
+[?2004l[sudo] password for user: 
+Chain INPUT (policy ACCEPT)
+num  target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+num  target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+num  target     prot opt source               destination         
+[?2004h]0;user@codeby-devops-server: ~[01;32muser@codeby-devops-server[00m:[01;34m~[00m$ sudo iptables -A INPUT -p icmp -j DROP
+[?2004l[?2004h]0;user@codeby-devops-server: ~[01;32muser@codeby-devops-server[00m:[01;34m~[00m$ sudo a[Kiptables -L --line-number
+[?2004lChain INPUT (policy ACCEPT)
+num  target     prot opt source               destination         
+1    DROP       icmp --  anywhere             anywhere            
+
+Chain FORWARD (policy ACCEPT)
+num  target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+num  target     prot opt source               destination         
+[?2004h]0;user@codeby-devops-server: ~[01;32muser@codeby-devops-server[00m:[01;34m~[00m$ exit
+[?2004lexit
+
+Script done on 2026-04-20 10:51:27+00:00 [COMMAND_EXIT_CODE="0"]
