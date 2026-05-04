@@ -1,0 +1,44 @@
+BRIDGE_NET="192.168.56."
+BOX_NAME = "bento-ubuntu-24.04-amd64"
+BOX_URL = "file://~/study/codeby_devops/bento-ubuntu-24.04-amd64"
+MACHINES = {
+  "l8sr" => {
+    :host_name => "l8-server",  
+    :ip_addr => BRIDGE_NET + "104",
+    :check_update => false,
+    :cpu => 1,
+    :ram => 1024,
+    :gui => false,
+    :shpath => "scripts/server_init.sh",
+  },
+  "l8cl" => {
+    :host_name => "l8-client",  
+    :ip_addr => BRIDGE_NET + "105",
+    :check_update => false,
+    :cpu => 1,
+    :ram => 1024,
+    :gui => false,
+    :shpath => "scripts/client_init.sh",
+  },
+}
+
+Vagrant.configure("2") do |config|
+  MACHINES.each do |boxname, boxconfig|
+    config.vm.define boxname do |box|
+      box.vm.box = BOX_NAME
+      box.vm.box_url = BOX_URL
+      box.vm.hostname = boxconfig[:host_name]
+      box.vm.box_check_update = boxconfig[:check_update]
+      box.vm.network "private_network", ip: boxconfig[:ip_addr]
+      box.vm.provider :virtualbox do |vb|
+        vb.name = boxconfig[:host_name]
+        vb.cpus = boxconfig[:cpu]
+        vb.memory = boxconfig[:ram]
+        vb.gui = boxconfig[:gui]
+      end
+      if (!boxconfig[:shpath].nil?)
+        box.vm.provision "shell", path: boxconfig[:shpath]
+      end
+    end
+  end
+end

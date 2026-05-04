@@ -1,0 +1,20 @@
+[req]
+distinguished_name = req_distinguished_name
+req_extensions = v3_req
+prompt = no
+
+[req_distinguished_name]
+C=RU
+ST=MSK
+L=Moscow
+O=devops_lesson8
+OU=IT
+CN=lesson8.local
+emailAddress=admin@lesson8.local
+
+[v3_req]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = lesson8.local
+DNS.2 = www.lesson8.local
