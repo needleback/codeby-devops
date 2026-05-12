@@ -1,0 +1,132 @@
+Script started on 2026-05-08 06:08:04+00:00 [TERM="tmux-256color" TTY="/dev/pts/0" COLUMNS="348" LINES="28"]
+[?2004h[01;32mvagrant@l9-server[00m:[01;34m~[00m$ mysql
+[?2004lWelcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 57
+Server version: 8.0.45-0ubuntu0.24.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| lesson9            |
+| performance_schema |
++--------------------+
+3 rows in set (0.01 sec)
+
+mysql> use lesson9;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show TABLES;
++-------------------+
+| Tables_in_lesson9 |
++-------------------+
+| Orders            |
+| Products          |
+| Users             |
++-------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM USER[25G[K[24G[K[23G[Ksersl[27G[K;
++----+-----------+----------+------+---------+
+| Id | FirstName | LastName | Age  | Phone   |
++----+-----------+----------+------+---------+
+|  1 | Vasya     | Aysav    |   30 | +710001 |
+|  2 | Petya     | Aytep    |   40 | +710002 |
+|  3 | Sasha     | Ahsas    |   50 | +710003 |
++----+-----------+----------+------+---------+
+3 rows in set (0.01 sec)
+
+mysql> show GRANTS for ''[25Gv'[26Ga'[27Gg'[28Gr'[29Ga'[30Gn'[31Gt''@''[35Gl'[36Go'[37Gc'[38Ga'[39Gl'[40Gh'[41Go'[42Gs'[43Gt'';
++--------------------------------------------------------------+
+| Grants for vagrant@localhost                                 |
++--------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `vagrant`@`localhost`                  |
+| GRANT ALL PRIVILEGES ON `lesson9`.* TO `vagrant`@`localhost` |
++--------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> DROP DATABASE lesson9;
+Query OK, 3 rows affected (0.05 sec)
+
+mysql> show DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> \q
+Bye
+[?2004h[01;32mvagrant@l9-server[00m:[01;34m~[00m$ gunzip -c /opt/mysql_backup/lesson9_2026-05-0
+lesson9_2026-05-07_1200.sql.gz  lesson9_2026-05-07_1400.sql.gz  lesson9_2026-05-07_2100.sql.gz  lesson9_2026-05-07_2300.sql.gz  lesson9_2026-05-08_0100.sql.gz  lesson9_2026-05-08_0300.sql.gz  lesson9_2026-05-08_0500.sql.gz  
+lesson9_2026-05-07_1300.sql.gz  lesson9_2026-05-07_2000.sql.gz  lesson9_2026-05-07_2200.sql.gz  lesson9_2026-05-08_0000.sql.gz  lesson9_2026-05-08_0200.sql.gz  lesson9_2026-05-08_0400.sql.gz  lesson9_2026-05-08_0600.sql.gz  
+[01;32mvagrant@l9-server[00m:[01;34m~[00m$ gunzip -c /opt/mysql_backup/lesson9_2026-05-08_0
+lesson9_2026-05-08_0000.sql.gz  lesson9_2026-05-08_0100.sql.gz  lesson9_2026-05-08_0200.sql.gz  lesson9_2026-05-08_0300.sql.gz  lesson9_2026-05-08_0400.sql.gz  lesson9_2026-05-08_0500.sql.gz  lesson9_2026-05-08_0600.sql.gz  
+[01;32mvagrant@l9-server[00m:[01;34m~[00m$ gunzip -c /opt/mysql_backup/lesson9_2026-05-08_0600.sql.gz | mysql
+[?2004l[?2004h[01;32mvagrant@l9-server[00m:[01;34m~[00m$ mysql
+[?2004lWelcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 59
+Server version: 8.0.45-0ubuntu0.24.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| lesson9            |
+| performance_schema |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> user[11G[K lesson9;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show TAN[15G[KBLES;
++-------------------+
+| Tables_in_lesson9 |
++-------------------+
+| Orders            |
+| Products          |
+| Users             |
++-------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Users;
++----+-----------+----------+------+---------+
+| Id | FirstName | LastName | Age  | Phone   |
++----+-----------+----------+------+---------+
+|  1 | Vasya     | Aysav    |   30 | +710001 |
+|  2 | Petya     | Aytep    |   40 | +710002 |
+|  3 | Sasha     | Ahsas    |   50 | +710003 |
++----+-----------+----------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> \q
+Bye
+[?2004h[01;32mvagrant@l9-server[00m:[01;34m~[00m$ exit
+[?2004lexit
+
+Script done on 2026-05-08 06:10:58+00:00 [COMMAND_EXIT_CODE="0"]

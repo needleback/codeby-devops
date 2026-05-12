@@ -1,0 +1,5 @@
+# create bak
+0 * * * * /home/vagrant/backup_lesson9.sh
+
+# send bak to store
+5 * * * * rsync -aze "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o LogLevel=ERROR -i /vagrant/.vagrant/machines/l9st/virtualbox/private_key" /opt/mysql_backup/ vagrant@192.168.56.107:/opt/story/mysql/
