@@ -2,6 +2,11 @@
 
 MYFOLDER=/home/${USER}/myfolder
 
+if [ ! -d ${MYFOLDER} ]; then
+  echo "The directory ${MYFOLDER} has not been created yet"
+  exit 1
+fi
+
 cd ${MYFOLDER}/
 
 # Определяет, как много файлов создано в папке myfolder
@@ -31,3 +36,5 @@ done
 
 # Выводит как много файлов создано в папке myfolder
 echo "total files: ${count_files}"
+
+echo "${0} completed successfully"

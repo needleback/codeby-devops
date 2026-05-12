@@ -2,7 +2,10 @@
 
 MYFOLDER=/home/${USER}/myfolder
 
-rm -r ${MYFOLDER}/
+if [ -d ${MYFOLDER} ]; then
+  echo "The directory ${MYFOLDER} already exists, Deleting it"
+  rm -r ${MYFOLDER}/
+fi
 
 # Создает папку myfolder в домашней папке текущего пользователя
 mkdir ${MYFOLDER}/
@@ -22,3 +25,5 @@ echo $( head -c 30 /dev/urandom | base64 | tr -dc 'A-Za-z' | head -c 20; echo ) 
 
 # пустые файлы
 touch ${MYFOLDER}/file{4..5}
+
+echo "${0} completed successfully"
