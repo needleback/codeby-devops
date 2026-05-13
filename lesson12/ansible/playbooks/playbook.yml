@@ -1,0 +1,25 @@
+- hosts: all
+  tasks:
+    - name: Обновление apt кеша
+      ansible.builtin.apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Установка пакетов
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - wget
+        - htop
+        - nginx
+
+    - name: Запуск nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Вывод информации об окружении
+      debug:
+        msg: This host is in {{ inventory_hostname }} environment
