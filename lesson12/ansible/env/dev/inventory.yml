@@ -1,0 +1,7 @@
+all:
+  hosts:
+    dev:
+      ansible_connection: ssh
+      ansible_host: 192.168.56.108
+      ansible_ssh_private_key_file: /home/user/study/codeby_devops/lesson12/.vagrant/machines/l12dev/virtualbox/private_key
+
