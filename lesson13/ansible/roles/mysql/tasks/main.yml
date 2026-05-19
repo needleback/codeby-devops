@@ -1,0 +1,11 @@
+- name: install sql
+  package:
+    name: "{{ sql_pkg }}"
+    state: present
+    update_cache: yes
+
+- name: start Sql
+  service:
+    name: "{{ sql_sctl }}"
+    state: started
+    enabled: yes

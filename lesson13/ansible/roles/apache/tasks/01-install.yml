@@ -1,0 +1,7 @@
+- name: install Apache2
+  package:
+    name: "{{ apache_pkg }}"
+    state: present
+    update_cache: yes
+  notify:
+    - start Apache

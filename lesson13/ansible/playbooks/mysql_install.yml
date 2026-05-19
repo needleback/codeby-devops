@@ -1,0 +1,6 @@
+- name: Роль mysql Ansible
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - mysql
