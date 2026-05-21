@@ -1,0 +1,10 @@
+- name: start Apache
+  service:
+    name: "{{ apache_pkg }}"
+    state: started
+    enabled: yes
+
+- name: restart Apache
+  service:
+    name: "{{ apache_pkg }}"
+    state: restarted

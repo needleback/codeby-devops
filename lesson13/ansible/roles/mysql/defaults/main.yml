@@ -1,0 +1,3 @@
+sql_pkg: "mysql-server"
+sql_sctl: "{{ 'mysql' if ansible_os_family == 'Debian' else 'mysqld' if ansible_os_family == 'RedHat' }}"
+

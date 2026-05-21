@@ -1,0 +1,11 @@
+<VirtualHost *:80>
+    ServerName lesson13_app
+    DocumentRoot {{ apache_www }}
+
+    <Directory />
+        #Options Indexes FollowSymLinks
+        #AllowOverride All
+        Require all granted
+    </Directory>
+
+</VirtualHost>

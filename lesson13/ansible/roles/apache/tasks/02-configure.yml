@@ -1,0 +1,41 @@
+- name: Dissite Apache default config
+  command: a2dissite {{ apache_cfg_default }}
+  when: ansible_os_family == 'Debian'
+
+- name: permit traffic in default zone for http service
+  ansible.posix.firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+    immediate: yes
+  when: ansible_os_family == 'RedHat'
+
+- name: Create Apache cfg
+  template:
+    src: apache.conf.j2
+    dest: "{{ apache_cfg_dir }}/{{ apache_cfg }}"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Ensite Apache cfg
+  command: a2ensite {{ apache_cfg }}
+  when: ansible_os_family == 'Debian'
+
+- name: Create Apache www directory 
+  file:
+    path: "{{ apache_www }}"
+    state: directory
+    owner: "{{ apache_owner }}"
+    group: "{{ apache_group }}"
+    mode: 0775
+    recurse: yes
+
+- name: Create Apache html
+  template:
+    src: apache.html.j2
+    dest: "{{ apache_www }}/index.html"
+    owner: "{{ apache_owner }}"
+    group: "{{ apache_group }}"
+    mode: 0755
+  notify: restart Apache

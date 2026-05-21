@@ -1,0 +1,6 @@
+- name: Роль apache2 ansible
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - apache
