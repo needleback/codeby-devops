@@ -1,0 +1,71 @@
+Script started on 2026-06-02 14:04:02+00:00 [TERM="tmux-256color" TTY="/dev/pts/1" COLUMNS="174" LINES="41"]
+[?2004h[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson17[00m$ docker ps -a
+[?2004lCONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+[?2004h[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson17[00m$ docker network create --driver =[K[K=bridge wp-net
+[?2004lbf90b901869bb11be0be521bc4bbb4423c5272fa4e6231d9f20e5636993e33d6
+[?2004h[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson17[00m$ docker netwe[Kork ls 
+[?2004lNETWORK ID     NAME                                                             DRIVER    SCOPE
+84ec5255d734   bridge                                                           bridge    local
+fd3f15ccbfee   host                                                             host      local
+67435887e46e   localstack_localstack-docker-desktop-desktop-extension_default   bridge    local
+0f39b7f9b593   none                                                             null      local
+bf90b901869b   wp-net                                                           bridge    local
+[?2004h[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson17[00m$ [7mdocker volume create --name wp-db[27mdocker volume create --name wp-db
+[?2004lwp-db
+[?2004h[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson17[00m$ [7mdocker volume create --name wp-data[27mdocker volume create --name wp-data
+[?2004lwp-data
+[?2004h[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson17[00m$ docker volume ls
+[?2004lDRIVER    VOLUME NAME
+local     lesson15_localstack_data
+local     localstack_localstack-docker-desktop-desktop-extension_ls_app_config
+local     localstack_localstack_data
+local     wp-data
+local     wp-db
+[?2004h[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson17[00m$ [7mdocker run -d --rm \[27m
+[7m        --name l17mysql \[27m
+[7m        --net=wp-net \[27m
+[7m        -e MYSQL_ROOT_PASSWORD=my_root_pass \[27m
+[7m        -e MYSQL_DATABASE=wp_db \[27m
+[7m        -e MYSQL_USER=wp_user \[27m
+[7m        -e MYSQL_PASSWORD=wp_pass \[27m
+[7m        -v wp-db:/var/lib/mysql \[27m
+[7m        mysql:latest[27mMMMMMMMM[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson17[00m$ docker run -d --rm \
+        --name l17mysql \
+        --net=wp-net \
+        -e MYSQL_ROOT_PASSWORD=my_root_pass \
+        -e MYSQL_DATABASE=wp_db \
+        -e MYSQL_USER=wp_user \
+        -e MYSQL_PASSWORD=wp_pass \
+        -v wp-db:/var/lib/mysql \
+        mysql:latest
+[?2004l4c45a850819b3871ec57b1db2578cc76bbb65790b558511431c8b4948d655be8
+[?2004h[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson17[00m$ [7mdocker run -d --rm \[27m
+[7m        --name l17wp \[27m
+[7m        --net=wp-net \[27m
+[7m        -e WORDPRESS_DB_HOST=l17mysql:3306 \[27m
+[7m        -e WORDPRESS_DB_NAME=wp_db \[27m
+[7m        -e WORDPRESS_DB_USER=wp_user \[27m
+[7m        -e WORDPRESS_DB_PASSWORD=wp_pass \[27m
+[7m        -v wp-data:/var/www/html \[27m
+[7m        -v /home/user/study/codeby_devops/lesson17/wp_apache_conf:/etc/apache2/sites-enabled:ro \[27m
+[7m        -p 8080:80 \[27m
+[7m        wordpress:latest[27mMMMMMMMMMM[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson17[00m$ docker run -d --rm \
+        --name l17wp \
+        --net=wp-net \
+        -e WORDPRESS_DB_HOST=l17mysql:3306 \
+        -e WORDPRESS_DB_NAME=wp_db \
+        -e WORDPRESS_DB_USER=wp_user \
+        -e WORDPRESS_DB_PASSWORD=wp_pass \
+        -v wp-data:/var/www/html \
+        -v /home/user/study/codeby_devops/lesson17/wp_apache_conf:/etc/apache2/sites-enabled:ro \
+        -p 8080:80 \
+        wordpress:latest
+[?2004lffaf8969776e84694ba116d9c749f6d3487a41af76320b5a5c6985414893f6d4
+[?2004h[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson17[00m$ docker ps
+[?2004lCONTAINER ID   IMAGE              COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+ffaf8969776e   wordpress:latest   "docker-entrypoint.s…"   4 seconds ago    Up 3 seconds    0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   l17wp
+4c45a850819b   mysql:latest       "docker-entrypoint.s…"   19 seconds ago   Up 18 seconds   3306/tcp, 33060/tcp                       l17mysql
+[?2004h[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson17[00m$ exit
+[?2004lexit
+
+Script done on 2026-06-02 14:07:53+00:00 [COMMAND_EXIT_CODE="0"]
