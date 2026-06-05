@@ -1,0 +1,67 @@
+services:
+  db:
+    image: mysql:latest
+    container_name: db
+    restart: always
+    env_file: 
+      - ./a.env
+      - ./db.env
+    networks:
+      - backend
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
+    secrets:
+       - db_root_password
+       - db_password
+    volumes:
+      - wp_db:/var/lib/mysql
+
+  app:
+    image: wordpress:latest
+    container_name: app
+    restart: always
+    env_file:
+      - ./a.env
+      - ./app.env
+    depends_on:
+      - db
+    networks:
+      - backend
+      - frontend
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/db_password
+    secrets:
+       - db_password
+    volumes:
+      - wp-data:/var/www/html
+
+  proxy:
+    image: nginx:latest
+    container_name: proxy
+    restart: always
+    depends_on:
+      - app
+    networks:
+      - frontend
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx_conf:/etc/nginx/conf.d:ro
+
+volumes:
+  wp-data:
+  wp_db:
+
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge
+
+secrets:
+   db_password:
+     file: db_password.txt
+   db_root_password:
+     file: db_root_password.txt
