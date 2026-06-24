@@ -1,0 +1,22 @@
+Script started on 2026-06-20 12:08:28+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="120" LINES="57"]
+[?2004h]0;user@codeby-devops-gui: ~/study/codeby_devops/lesson19[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson19[00m$ curl -LO https://dl.k8s.io/release/`curl -LS https://dl.k8s.io/release/stable.txt`/bin/linux/amd64/kubectl
+[?2004l  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100     7  100     7    0     0     30      0 --:--:-- --:--:-- --:--:--    30
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 22 56.7M   22 12.6M    0     0  15.6M      0  0:00:03 --:--:--  0:00:03 15.6M 76 56.7M   76 43.3M    0     0  24.0M      0  0:00:02  0:00:01  0:00:01 24.0M100 56.7M  100 56.7M    0     0  24.5M      0  0:00:02  0:00:02 --:--:-- 24.5M
+[?2004h]0;user@codeby-devops-gui: ~/study/codeby_devops/lesson19[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson19[00m$ chmod +x ./kubectl
+[?2004l[?2004h]0;user@codeby-devops-gui: ~/study/codeby_devops/lesson19[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson19[00m$ sudo mv ./kubectl /usr/local/bin/kubectl
+[?2004l[sudo] password for user: 
+[?2004h]0;user@codeby-devops-gui: ~/study/codeby_devops/lesson19[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson19[00m$ kubectl version --client
+[?2004lClient Version: v1.36.2
+Kustomize Version: v5.8.1
+[?2004h]0;user@codeby-devops-gui: ~/study/codeby_devops/lesson19[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson19[00m$ echo "source <(kubectl completion bash)" >> ~/.bashrc
+[?2004l[?2004h]0;user@codeby-devops-gui: ~/study/codeby_devops/lesson19[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson19[00m$ kubectl cv[K[Kversion --client
+[?2004lClient Version: v1.36.2
+Kustomize Version: v5.8.1
+[?2004h]0;user@codeby-devops-gui: ~/study/codeby_devops/lesson19[01;32muser@codeby-devops-gui[00m:[01;34m~/study/codeby_devops/lesson19[00m$ exit
+[?2004lexit
+
+Script done on 2026-06-20 12:09:55+00:00 [COMMAND_EXIT_CODE="0"]
