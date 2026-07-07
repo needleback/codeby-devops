@@ -34,8 +34,9 @@ pipeline {
         }
         stage('Deliver') { 
             steps {
-                sh "chmod +x ${env.APP_DIR}/jenkins/scripts/deliver.sh"
-                sh "./${env.APP_DIR}/jenkins/scripts/deliver.sh"
+                // sh "chmod +x ${env.APP_DIR}/jenkins/scripts/deliver.sh"
+                // sh "./${env.APP_DIR}/jenkins/scripts/deliver.sh"
+                echo "Hello World!"
             }
         }
     }
