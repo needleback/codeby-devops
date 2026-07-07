@@ -1,0 +1,42 @@
+pipeline {
+    agent { label 'maven-agent-01' }
+
+    environment {
+        GITHUB_CRED = 'github'
+        GITHUB_URL = 'https://github.com/needleback/codeby-devops.git'
+        APP_DIR = 'lesson26/simple-java-maven-app'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'lesson26', changelog: false, credentialsId: env.GITHUB_CRED, poll: false, url: env.GITHUB_URL
+            }
+        }
+        stage('Build') {
+            steps {
+                dir(env.APP_DIR) {
+                    sh 'mvn -B -DskipTests clean package'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                dir(env.APP_DIR) {
+                    sh 'mvn test'
+                }
+            }
+            post {
+                always {
+                    junit "${env.APP_DIR}/target/surefire-reports/*.xml"
+                }
+            }
+        }
+        stage('Deliver') { 
+            steps {
+                sh "chmod +x ${env.APP_DIR}/jenkins/scripts/deliver.sh"
+                sh "./${env.APP_DIR}/jenkins/scripts/deliver.sh"
+            }
+        }
+    }
+}
