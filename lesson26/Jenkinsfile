@@ -37,7 +37,7 @@ pipeline {
         stage('Applications') {
             parallel {
 
-                stage(env.APP1){
+                stage("${env.APP1}"){
                     when {
                         expression { env.APP1_CHANGED == 'true' }
                     }
@@ -69,7 +69,7 @@ pipeline {
                     }
                 }
 
-                stage(env.APP2){
+                stage("${env.APP2}"){
                     when {
                         expression { env.APP2_CHANGED == 'true' }
                     }
@@ -101,7 +101,7 @@ pipeline {
                     }
                 }
 
-                stage(env.APP3){
+                stage("${env.APP3}"){
                     when {
                         expression { env.APP3_CHANGED == 'true' }
                     }
