@@ -2,17 +2,17 @@ pipeline {
     agent { label 'maven-agent-01' }
 
     environment {
-        GITHUB_CRED = 'github'
-        GITHUB_URL = 'https://github.com/needleback/codeby-devops.git'
+        // GITHUB_CRED = 'github'
+        // GITHUB_URL = 'https://github.com/needleback/codeby-devops.git'
         APP_DIR = 'lesson26/simple-java-maven-app'
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'lesson26', changelog: false, credentialsId: env.GITHUB_CRED, poll: false, url: env.GITHUB_URL
-            }
-        }
+        // stage('Checkout') {
+        //     steps {
+        //         git branch: 'lesson26', changelog: false, credentialsId: env.GITHUB_CRED, poll: false, url: env.GITHUB_URL
+        //     }
+        // }
         stage('Build') {
             steps {
                 dir(env.APP_DIR) {
