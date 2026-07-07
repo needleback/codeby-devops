@@ -1,43 +1,141 @@
 pipeline {
     agent { label 'maven-agent-01' }
 
+
     environment {
-        // GITHUB_CRED = 'github'
-        // GITHUB_URL = 'https://github.com/needleback/codeby-devops.git'
-        APP_DIR = 'lesson26/simple-java-maven-app'
+        LESSON_DIR = 'lesson26'
+        APP1 = 'simple-java-maven-app'
+        APP1_DIR = "${env.LESSON_DIR}/${env.APP1}"
+        APP2 = 'Hello-Devops'
+        APP2_DIR = "${env.LESSON_DIR}/${env.APP2}"
+        APP3 = 'Hello-Jenkins'
+        APP3_DIR = "${env.LESSON_DIR}/${env.APP3}"
     }
 
+
     stages {
-        // stage('Checkout') {
-        //     steps {
-        //         git branch: 'lesson26', changelog: false, credentialsId: env.GITHUB_CRED, poll: false, url: env.GITHUB_URL
-        //     }
-        // }
-        stage('Build') {
+        stage('Identify changes') {
             steps {
-                dir(env.APP_DIR) {
-                    sh 'mvn -B -DskipTests clean package'
+                script {
+                    def changedFiles = sh(
+                        script: "git diff --name-only HEAD~1 HEAD",
+                        returnStdout: true
+                    ).trim().split("\n")
+
+                    env.APP1_CHANGED = changedFiles.any { it.startsWith(env.APP1_DIR) }.toString()
+                    env.APP2_CHANGED = changedFiles.any { it.startsWith(env.APP2_DIR) }.toString()
+                    env.APP3_CHANGED = changedFiles.any { it.startsWith(env.APP3_DIR) }.toString()
+
+                    echo "app1: ${env.APP1_CHANGED}"
+                    echo "app2: ${env.APP2_CHANGED}"
+                    echo "app3: ${env.APP3_CHANGED}"
                 }
             }
         }
-        stage('Test') {
-            steps {
-                dir(env.APP_DIR) {
-                    sh 'mvn test'
+
+
+        stage('Applications') {
+            parallel {
+
+                stage(env.APP1){
+                    when {
+                        expression { env.APP1_CHANGED == 'true' }
+                    }
+                    stages {
+                        stage('Build') {
+                            steps {
+                                dir(env.APP1_DIR) {
+                                    sh 'mvn -B -DskipTests clean package'
+                                }
+                            }
+                        }
+                        stage('Test') {
+                            steps {
+                                dir(env.APP1_DIR) {
+                                    sh 'mvn test'
+                                }
+                            }
+                            post {
+                                always {
+                                    junit "${env.APP1_DIR}/target/surefire-reports/*.xml"
+                                }
+                            }
+                        }
+                        stage('Deliver') {
+                            steps {
+                                echo "Hello World!"
+                            }
+                        }
+                    }
                 }
-            }
-            post {
-                always {
-                    junit "${env.APP_DIR}/target/surefire-reports/*.xml"
+
+                stage(env.APP2){
+                    when {
+                        expression { env.APP2_CHANGED == 'true' }
+                    }
+                    stages {
+                        stage('Build') {
+                            steps {
+                                dir(env.APP2_DIR) {
+                                    sh 'mvn -B -DskipTests clean package'
+                                }
+                            }
+                        }
+                        stage('Test') {
+                            steps {
+                                dir(env.APP2_DIR) {
+                                    sh 'mvn test'
+                                }
+                            }
+                            post {
+                                always {
+                                    junit "${env.APP2_DIR}/target/surefire-reports/*.xml"
+                                }
+                            }
+                        }
+                        stage('Deliver') {
+                            steps {
+                                echo "Hello World!"
+                            }
+                        }
+                    }
                 }
-            }
-        }
-        stage('Deliver') { 
-            steps {
-                // sh "chmod +x ${env.APP_DIR}/jenkins/scripts/deliver.sh"
-                // sh "./${env.APP_DIR}/jenkins/scripts/deliver.sh"
-                echo "Hello World!"
-            }
-        }
-    }
-}
+
+                stage(env.APP3){
+                    when {
+                        expression { env.APP3_CHANGED == 'true' }
+                    }
+                    stages {
+                        stage('Build') {
+                            steps {
+                                dir(env.APP3_DIR) {
+                                    sh 'mvn -B -DskipTests clean package'
+                                }
+                            }
+                        }
+                        stage('Test') {
+                            steps {
+                                dir(env.APP3_DIR) {
+                                    sh 'mvn test'
+                                }
+                            }
+                            post {
+                                always {
+                                    junit "${env.APP3_DIR}/target/surefire-reports/*.xml"
+                                }
+                            }
+                        }
+                        stage('Deliver') {
+                            steps {
+                                echo "Hello World!"
+                            }
+                        }
+                    }
+                }
+
+            } // parallel
+        } // stage('Applications')
+
+
+    } // stages
+} // pipeline
