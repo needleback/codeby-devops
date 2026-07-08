@@ -1,0 +1,82 @@
+services:
+  jenkins-docker:
+    image: docker:dind
+    container_name: jenkins-docker
+    privileged: true
+    environment:
+      DOCKER_TLS_CERTDIR: /certs
+    restart: unless-stopped
+    ports:
+      - 2375:2375
+    volumes:
+      - jenkins_docker_certs:/certs/client
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - jenkins
+
+  jenkins-server:
+    depends_on:
+      - jenkins-docker
+    build:
+      context: .
+      dockerfile: DockerFile-jenkins-server
+    image: myjenkins-blueocean:2.555.3-1
+    container_name: jenkins-blueocean
+    privileged: true
+    environment:
+      DOCKER_HOST: tcp://jenkins-docker:2375
+      DOCKER_CERT_PATH: /certs/client
+      DOCKER_TLS_VERIFY: 1
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_docker_certs:/certs/client
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - jenkins
+
+  jenkins-agent:
+    depends_on:
+      - jenkins-server
+    build:
+      context: .
+      dockerfile: DockerFile-jenkins-agent-maven
+    image: myjenkins-agent-maven:latest
+    container_name: jenkins-agent
+    restart: unless-stopped
+    env_file: 
+      - ./ja.env
+    environment:
+      JENKINS_URL: http://jenkins-server:8080
+    volumes:
+      - agent_home:/home/jenkins/agent
+    networks:
+      - jenkins
+
+  sonarqube:
+    image: sonarqube:community
+    container_name: sonarqube
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: true
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    networks:
+      - jenkins
+
+networks:
+  jenkins:
+
+volumes:
+  jenkins_home:
+  jenkins_docker_certs:
+  agent_home:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
