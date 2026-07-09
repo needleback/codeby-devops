@@ -16,9 +16,9 @@ jobs:
     strategy:
       matrix:
         app:
-          - Hello-Worlds
-          - Hello-Jenkins
-          - Hello-Devops
+          - hello-world
+          - hello-jenkins
+          - hello-devops
 
     defaults:
       run:
