@@ -51,7 +51,7 @@ jobs:
 
       - name: Upload jar artifact
         run: mkdir staging && cp target/*.jar staging
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: Package-${{ matrix.app }}
           path: ${{ env.LESSON_PATH }}/${{ matrix.app }}/staging
