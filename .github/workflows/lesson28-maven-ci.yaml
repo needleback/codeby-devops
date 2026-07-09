@@ -30,7 +30,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-      - uses: actions/checkout@v6
+        uses: actions/checkout@v6
 
 
       - name: Set up JDK 17
@@ -50,8 +50,8 @@ jobs:
 
 
       - name: Upload jar artifact
-      - run: mkdir staging && cp target/*.jar staging
-      - uses: actions/upload-artifact@v4
+        run: mkdir staging && cp target/*.jar staging
+        uses: actions/upload-artifact@v4
         with:
           name: Package-${{ matrix.app }}
           path: ${{ env.LESSON_PATH }}/${{ matrix.app }}/staging
