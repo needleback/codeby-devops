@@ -1,13 +1,14 @@
 name: lesson28 Maven CI/CD
 
-env:
-  LESSON_PATH: lesson28
-
 on:
   push:
     branches: [ lesson28 ]
     paths:
-      - "${{ env.LESSON_PATH }}/**"
+      - "lesson28/**"
+
+env:
+  LESSON_PATH: lesson28
+
 
 jobs:
 
