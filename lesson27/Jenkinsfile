@@ -1,0 +1,113 @@
+pipeline {
+  agent { label 'maven-agent-01' }
+
+
+  environment {
+    GITHUB_CRED = 'github-pat'
+    GITHUB_URL = 'https://github.com/needleback/codeby-devops.git'
+    
+    LESSON_DIR = 'lesson26'
+    APP1 = 'simple-java-maven-app'
+    APP1_DIR = "${env.LESSON_DIR}/${env.APP1}"
+    APP2 = 'Hello-Devops'
+    APP2_DIR = "${env.LESSON_DIR}/${env.APP2}"
+    APP3 = 'Hello-Jenkins'
+    APP3_DIR = "${env.LESSON_DIR}/${env.APP3}"
+  }
+
+
+  stages {
+    stage('Checkout') {
+      steps {
+        git branch: 'lesson26', changelog: false, credentialsId: env.GITHUB_CRED, poll: false, url: env.GITHUB_URL
+      }
+    }  
+
+
+    stage('Identify changes') {
+      steps {
+        script {
+          def changedFiles = sh(
+            // script: "git diff --name-only HEAD~1 HEAD",
+            script: "git diff --name-only afac079 4323014",
+            returnStdout: true
+          ).trim().split("\n")
+
+          env.APP1_CHANGED = changedFiles.any { it.startsWith(env.APP1_DIR) }.toString()
+          env.APP2_CHANGED = changedFiles.any { it.startsWith(env.APP2_DIR) }.toString()
+          env.APP3_CHANGED = changedFiles.any { it.startsWith(env.APP3_DIR) }.toString()
+
+          echo "app1: ${env.APP1_CHANGED}"
+          echo "app2: ${env.APP2_CHANGED}"
+          echo "app3: ${env.APP3_CHANGED}"
+        }
+      }
+    }
+
+    stage('Parallel Applications') {
+      steps {
+        script {
+          def branches = [:]
+
+          def apps = [
+            [name: env.APP1, dir: env.APP1_DIR, changed: env.APP1_CHANGED],
+            [name: env.APP2, dir: env.APP2_DIR, changed: env.APP2_CHANGED],
+            [name: env.APP3, dir: env.APP3_DIR, changed: env.APP3_CHANGED]
+          ]
+
+          apps.each { app ->
+            if (app.changed == 'true') {
+              branches[app.name] = {
+                stage(app.name) {
+
+                  stage('Build') {
+                    dir(app.dir) {
+                      sh 'mvn -B -DskipTests clean package'
+                    }
+                  }
+
+                  stage('Test') {
+                    dir(app.dir) {
+                      sh 'mvn test'
+                    }
+                    junit "${app.dir}/target/surefire-reports/*.xml"
+                  }
+
+                  stage('SonarQube Analysis') {
+                    dir(app.dir) {
+                      withSonarQubeEnv(credentialsId: 'sonar', installationName: 'SonarServer') {
+                        sh """
+                            mvn clean verify sonar:sonar \
+                              -Dsonar.projectKey=${app.name} \
+                              -Dsonar.projectName='${app.name}'
+                        """
+                      }
+                    }
+                  }
+
+                  stage('SonarQube Quality Gate') {
+                    // sleep 60
+                    timeout(time: 5, unit: 'MINUTES') {
+                      waitForQualityGate abortPipeline: true
+                    }
+                  }
+
+                  stage('Deliver') {
+                    echo "Hello ${app.name}"
+                  }
+
+                }   // stage(app.name)
+              }
+            }
+          }   // apps.each
+
+          parallel branches
+
+        }   // script
+      }
+    }   // stage('Parallel Applications')
+
+
+  } // stages
+} // pipeline
+

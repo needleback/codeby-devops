@@ -1,0 +1,715 @@
+Started by user admin
+Obtained lesson27/Jenkinsfile from git https://github.com/needleback/codeby-devops.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on maven-agent-01 in /home/jenkins/agent/workspace/lesson27
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: git
+using credential github-pat
+Fetching changes from the remote Git repository
+Checking out Revision 825316576ce06abd7eee880d2fb94163138f8158 (origin/lesson27)
+Commit message: "Homework lesson26"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] git
+The recommended git tool is: git
+using credential github-pat
+Fetching changes from the remote Git repository
+ > git rev-parse --resolve-git-dir /home/jenkins/agent/workspace/lesson27/.git # timeout=10
+ > git config remote.origin.url https://github.com/needleback/codeby-devops.git # timeout=10
+Fetching upstream changes from https://github.com/needleback/codeby-devops.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/needleback/codeby-devops.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse origin/lesson27^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 825316576ce06abd7eee880d2fb94163138f8158 # timeout=10
+Checking out Revision 7250cbca0c078f1f8f9f2092abc708dbd810ee6a (refs/remotes/origin/lesson26)
+Commit message: "lesson25. add results"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Identify changes)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ git diff --name-only afac079 4323014
+[Pipeline] echo
+app1: true
+[Pipeline] echo
+app2: true
+[Pipeline] echo
+app3: false
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Parallel Applications)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] parallel
+[Pipeline] { (Branch: simple-java-maven-app)
+[Pipeline] { (Branch: Hello-Devops)
+[Pipeline] stage
+[Pipeline] { (simple-java-maven-app)
+[Pipeline] stage
+[Pipeline] { (Hello-Devops)
+ > git rev-parse --resolve-git-dir /home/jenkins/agent/workspace/lesson27/.git # timeout=10
+ > git config remote.origin.url https://github.com/needleback/codeby-devops.git # timeout=10
+Fetching upstream changes from https://github.com/needleback/codeby-devops.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/needleback/codeby-devops.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/lesson26^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 7250cbca0c078f1f8f9f2092abc708dbd810ee6a # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D lesson26 # timeout=10
+ > git checkout -b lesson26 7250cbca0c078f1f8f9f2092abc708dbd810ee6a # timeout=10
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] dir
+Running in /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app
+[Pipeline] {
+[Pipeline] dir
+Running in /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
++ mvn -B -DskipTests clean package
++ mvn -B -DskipTests clean package
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.mycompany.app:my-app >----------------------
+[INFO] Building my-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ my-app ---
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.mycompany.app:my-app >----------------------
+[INFO] Building my-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ my-app ---
+[INFO] Deleting /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-maven) @ my-app ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ my-app ---
+[INFO] skip non existing resourceDirectory /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ my-app ---
+[INFO] Deleting /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops/target
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-maven) @ my-app ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ my-app ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 1 source file with javac [debug release 21] to target/classes
+[INFO] skip non existing resourceDirectory /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ my-app ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 1 source file with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ my-app ---
+[INFO] skip non existing resourceDirectory /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ my-app ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:2.17:test (default-test) @ my-app ---
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ my-app ---
+[INFO] skip non existing resourceDirectory /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ my-app ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:2.17:test (default-test) @ my-app ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ my-app ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ my-app ---
+[INFO] Building jar: /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app/target/my-app-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.367 s
+[INFO] Finished at: 2026-07-08T14:02:09Z
+[INFO] ------------------------------------------------------------------------
+[INFO] Building jar: /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops/target/my-app-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.404 s
+[INFO] Finished at: 2026-07-08T14:02:09Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] dir
+Running in /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app
+[Pipeline] {
+[Pipeline] dir
+Running in /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
++ mvn test
++ mvn test
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m----------------------< [0;36mcom.mycompany.app:my-app[0;1m >----------------------[m
+[[1;34mINFO[m] [1mBuilding my-app 1.0-SNAPSHOT[m
+[[1;34mINFO[m]   from pom.xml
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32menforcer:3.6.3:enforce[m [1m(enforce-maven)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m----------------------< [0;36mcom.mycompany.app:my-app[0;1m >----------------------[m
+[[1;34mINFO[m] [1mBuilding my-app 1.0-SNAPSHOT[m
+[[1;34mINFO[m]   from pom.xml
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32menforcer:3.6.3:enforce[m [1m(enforce-maven)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[[1;34mINFO[m] Rule 1: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mresources:3.3.1:resources[m [1m(default-resources)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] skip non existing resourceDirectory /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app/src/main/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mcompiler:3.15.0:compile[m [1m(default-compile)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[[1;34mINFO[m] Rule 1: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mresources:3.3.1:resources[m [1m(default-resources)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] skip non existing resourceDirectory /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops/src/main/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mcompiler:3.15.0:compile[m [1m(default-compile)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Nothing to compile - all classes are up to date.
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mresources:3.3.1:testResources[m [1m(default-testResources)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] skip non existing resourceDirectory /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mcompiler:3.15.0:testCompile[m [1m(default-testCompile)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Nothing to compile - all classes are up to date.
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32msurefire:2.17:test[m [1m(default-test)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Surefire report directory: /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app/target/surefire-reports
+[[1;34mINFO[m] Nothing to compile - all classes are up to date.
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mresources:3.3.1:testResources[m [1m(default-testResources)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] skip non existing resourceDirectory /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mcompiler:3.15.0:testCompile[m [1m(default-testCompile)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Nothing to compile - all classes are up to date.
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32msurefire:2.17:test[m [1m(default-test)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Surefire report directory: /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.mycompany.app.AppTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 sec - in com.mycompany.app.AppTest
+
+Results :
+
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  0.949 s
+[[1;34mINFO[m] Finished at: 2026-07-08T14:02:11Z
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+Running com.mycompany.app.AppTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in com.mycompany.app.AppTest
+
+Results :
+
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  0.852 s
+[[1;34mINFO[m] Finished at: 2026-07-08T14:02:11Z
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] junit
+[Pipeline] }
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (SonarQube Analysis)
+[Pipeline] }
+[Pipeline] dir
+Running in /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app
+[Pipeline] {
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (SonarQube Analysis)
+[Pipeline] withSonarQubeEnv
+Injecting SonarQube environment variables using the configuration: SonarServer
+[Pipeline] dir
+Running in /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops
+[Pipeline] {
+[Pipeline] withSonarQubeEnv
+Injecting SonarQube environment variables using the configuration: SonarServer
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] {
+[Pipeline] sh
++ mvn clean verify sonar:sonar -Dsonar.projectKey=simple-java-maven-app -Dsonar.projectName=simple-java-maven-app
++ mvn clean verify sonar:sonar -Dsonar.projectKey=Hello-Devops -Dsonar.projectName=Hello-Devops
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] Scanning for projects...
+[[1;33mWARNING[m] The artifact org.codehaus.mojo:sonar-maven-plugin:jar:4.0.0.4121 has been relocated to org.sonarsource.scanner.maven:sonar-maven-plugin:jar:4.0.0.4121: SonarQube plugin was moved to SonarSource organisation
+[[1;33mWARNING[m] The artifact org.codehaus.mojo:sonar-maven-plugin:jar:4.0.0.4121 has been relocated to org.sonarsource.scanner.maven:sonar-maven-plugin:jar:4.0.0.4121: SonarQube plugin was moved to SonarSource organisation
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m----------------------< [0;36mcom.mycompany.app:my-app[0;1m >----------------------[m
+[[1;34mINFO[m] [1mBuilding my-app 1.0-SNAPSHOT[m
+[[1;34mINFO[m]   from pom.xml
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mclean:3.2.0:clean[m [1m(default-clean)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32menforcer:3.6.3:enforce[m [1m(enforce-maven)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m----------------------< [0;36mcom.mycompany.app:my-app[0;1m >----------------------[m
+[[1;34mINFO[m] [1mBuilding my-app 1.0-SNAPSHOT[m
+[[1;34mINFO[m]   from pom.xml
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mclean:3.2.0:clean[m [1m(default-clean)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32menforcer:3.6.3:enforce[m [1m(enforce-maven)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[[1;34mINFO[m] Rule 1: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mresources:3.3.1:resources[m [1m(default-resources)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[[1;34mINFO[m] Rule 1: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mresources:3.3.1:resources[m [1m(default-resources)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] skip non existing resourceDirectory /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app/src/main/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mcompiler:3.15.0:compile[m [1m(default-compile)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Recompiling the module because of [1mchanged source code[m.
+[[1;34mINFO[m] Compiling 1 source file with javac [debug release 21] to target/classes
+[[1;34mINFO[m] skip non existing resourceDirectory /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops/src/main/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mcompiler:3.15.0:compile[m [1m(default-compile)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Recompiling the module because of [1mchanged source code[m.
+[[1;34mINFO[m] Compiling 1 source file with javac [debug release 21] to target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mresources:3.3.1:testResources[m [1m(default-testResources)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] skip non existing resourceDirectory /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mcompiler:3.15.0:testCompile[m [1m(default-testCompile)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Recompiling the module because of [1mchanged dependency[m.
+[[1;34mINFO[m] Compiling 1 source file with javac [debug release 21] to target/test-classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32msurefire:2.17:test[m [1m(default-test)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Surefire report directory: /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mresources:3.3.1:testResources[m [1m(default-testResources)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] skip non existing resourceDirectory /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mcompiler:3.15.0:testCompile[m [1m(default-testCompile)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Recompiling the module because of [1mchanged dependency[m.
+[[1;34mINFO[m] Compiling 1 source file with javac [debug release 21] to target/test-classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32msurefire:2.17:test[m [1m(default-test)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Surefire report directory: /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app/target/surefire-reports
+Running com.mycompany.app.AppTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in com.mycompany.app.AppTest
+
+Results :
+
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mjar:3.5.0:jar[m [1m(default-jar)[m @ [36mmy-app[0;1m ---[m
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.mycompany.app.AppTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec - in com.mycompany.app.AppTest
+
+Results :
+
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mjar:3.5.0:jar[m [1m(default-jar)[m @ [36mmy-app[0;1m ---[m
+[[1;34mINFO[m] Building jar: /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops/target/my-app-1.0-SNAPSHOT.jar
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m----------------------< [0;36mcom.mycompany.app:my-app[0;1m >----------------------[m
+[[1;34mINFO[m] [1mBuilding my-app 1.0-SNAPSHOT[m
+[[1;34mINFO[m]   from pom.xml
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32msonar:4.0.0.4121:sonar[m [1m(default-cli)[m @ [36mmy-app[0;1m ---[m
+[[1;33mWARNING[m] 14:02:14.865 Using an unspecified version instead of an explicit plugin version may introduce breaking analysis changes at an unwanted time. It is highly recommended to use an explicit version, e.g. 'org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121'.
+[[1;34mINFO[m] 14:02:14.873 Java 21.0.11 Eclipse Adoptium (64-bit)
+[[1;34mINFO[m] 14:02:14.874 Linux 6.12.74+deb13+1-amd64 (amd64)
+[[1;34mINFO[m] Building jar: /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app/target/my-app-1.0-SNAPSHOT.jar
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m----------------------< [0;36mcom.mycompany.app:my-app[0;1m >----------------------[m
+[[1;34mINFO[m] [1mBuilding my-app 1.0-SNAPSHOT[m
+[[1;34mINFO[m]   from pom.xml
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32msonar:4.0.0.4121:sonar[m [1m(default-cli)[m @ [36mmy-app[0;1m ---[m
+[[1;33mWARNING[m] 14:02:14.854 Using an unspecified version instead of an explicit plugin version may introduce breaking analysis changes at an unwanted time. It is highly recommended to use an explicit version, e.g. 'org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121'.
+[[1;34mINFO[m] 14:02:14.863 Java 21.0.11 Eclipse Adoptium (64-bit)
+[[1;34mINFO[m] 14:02:14.864 Linux 6.12.74+deb13+1-amd64 (amd64)
+[[1;34mINFO[m] 14:02:14.988 User cache: /home/jenkins/.sonar/cache
+[[1;34mINFO[m] 14:02:15.033 Communicating with SonarQube Server 12.37.0.3460
+[[1;34mINFO[m] 14:02:15.040 Default locale: "en", source code encoding: "UTF-8"
+[[1;34mINFO[m] 14:02:14.977 User cache: /home/jenkins/.sonar/cache
+[[1;34mINFO[m] 14:02:15.023 Communicating with SonarQube Server 12.37.0.3460
+[[1;34mINFO[m] 14:02:15.030 Default locale: "en", source code encoding: "UTF-8"
+[[1;33mWARNING[m] 14:02:15.257 Property 'env.SONARQUBE_SCANNER_PARAMS' is encrypted. The encryption of scanner properties is deprecated and will soon be removed.
+[[1;33mWARNING[m] 14:02:15.233 Property 'env.SONARQUBE_SCANNER_PARAMS' is encrypted. The encryption of scanner properties is deprecated and will soon be removed.
+[[1;34mINFO[m] 14:02:15.605 Load global settings
+[[1;34mINFO[m] 14:02:15.675 Load global settings (done) | time=68ms
+[[1;34mINFO[m] 14:02:15.573 Load global settings
+[[1;34mINFO[m] 14:02:15.642 Load global settings (done) | time=67ms
+[[1;34mINFO[m] 14:02:15.652 Server id: 147B411E-AZ9BFHwArQeRpozHpKLH
+[[1;34mINFO[m] 14:02:15.658 Loading required plugins
+[[1;34mINFO[m] 14:02:15.658 Load plugins index
+[[1;34mINFO[m] 14:02:15.668 Load plugins index (done) | time=10ms
+[[1;34mINFO[m] 14:02:15.668 Load/download plugins
+[[1;34mINFO[m] 14:02:15.676 Load/download plugins (done) | time=8ms
+[[1;34mINFO[m] 14:02:15.686 Server id: 147B411E-AZ9BFHwArQeRpozHpKLH
+[[1;34mINFO[m] 14:02:15.693 Loading required plugins
+[[1;34mINFO[m] 14:02:15.694 Load plugins index
+[[1;34mINFO[m] 14:02:15.706 Load plugins index (done) | time=12ms
+[[1;34mINFO[m] 14:02:15.706 Load/download plugins
+[[1;34mINFO[m] 14:02:15.713 Load/download plugins (done) | time=7ms
+[[1;34mINFO[m] 14:02:15.918 Process project properties
+[[1;34mINFO[m] 14:02:15.929 Process project properties (done) | time=11ms
+[[1;34mINFO[m] 14:02:15.937 Project key: simple-java-maven-app
+[[1;34mINFO[m] 14:02:15.937 Base dir: /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app
+[[1;34mINFO[m] 14:02:15.937 Working dir: /home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app/target/sonar
+[[1;34mINFO[m] 14:02:15.943 Load project settings for component key: 'simple-java-maven-app'
+[[1;34mINFO[m] 14:02:15.963 Process project properties
+[[1;34mINFO[m] 14:02:15.979 Process project properties (done) | time=16ms
+[[1;34mINFO[m] 14:02:15.988 Project key: Hello-Devops
+[[1;34mINFO[m] 14:02:15.988 Base dir: /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops
+[[1;34mINFO[m] 14:02:15.988 Working dir: /home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops/target/sonar
+[[1;34mINFO[m] 14:02:15.994 Load project settings for component key: 'Hello-Devops'
+[[1;34mINFO[m] 14:02:16.009 Load project settings for component key: 'Hello-Devops' (done) | time=15ms
+[[1;34mINFO[m] 14:02:16.022 Load quality profiles
+[[1;34mINFO[m] 14:02:16.066 Load quality profiles (done) | time=44ms
+[[1;34mINFO[m] 14:02:16.082 Auto-configuring with CI 'Jenkins'
+[[1;34mINFO[m] 14:02:16.105 Load active rules
+[[1;34mINFO[m] 14:02:15.953 Load project settings for component key: 'simple-java-maven-app' (done) | time=10ms
+[[1;34mINFO[m] 14:02:15.967 Load quality profiles
+[[1;34mINFO[m] 14:02:16.019 Load quality profiles (done) | time=52ms
+[[1;34mINFO[m] 14:02:16.033 Auto-configuring with CI 'Jenkins'
+[[1;34mINFO[m] 14:02:16.061 Load active rules
+[[1;34mINFO[m] 14:02:16.414 Load active rules (done) | time=309ms
+[[1;34mINFO[m] 14:02:16.418 Load analysis cache
+[[1;34mINFO[m] 14:02:16.428 Load analysis cache (193 bytes) | time=10ms
+[[1;34mINFO[m] 14:02:16.332 Load active rules (done) | time=272ms
+[[1;34mINFO[m] 14:02:16.337 Load analysis cache
+[[1;34mINFO[m] 14:02:16.353 Load analysis cache (199 bytes) | time=16ms
+[[1;34mINFO[m] 14:02:16.474 Preprocessing files...
+[[1;34mINFO[m] 14:02:16.515 2 languages detected in 3 preprocessed files (done) | time=37ms
+[[1;34mINFO[m] 14:02:16.515 0 files ignored because of scm ignore settings
+[[1;34mINFO[m] 14:02:16.516 Loading plugins for detected languages
+[[1;34mINFO[m] 14:02:16.517 Load/download plugins
+[[1;34mINFO[m] 14:02:16.522 Load/download plugins (done) | time=5ms
+[[1;34mINFO[m] 14:02:16.599 Load project repositories
+[[1;34mINFO[m] 14:02:16.681 Load project repositories (done) | time=82ms
+[[1;34mINFO[m] 14:02:16.696 Indexing files...
+[[1;34mINFO[m] 14:02:16.696 Project configuration:
+[[1;34mINFO[m] 14:02:16.701 3 files indexed (done) | time=5ms
+[[1;34mINFO[m] 14:02:16.702 Quality profile for java: Sonar way
+[[1;34mINFO[m] 14:02:16.702 Quality profile for xml: Sonar way
+[[1;34mINFO[m] 14:02:16.702 ------------- Run sensors on module simple-java-maven-app
+[[1;34mINFO[m] 14:02:16.546 Preprocessing files...
+[[1;34mINFO[m] 14:02:16.583 2 languages detected in 3 preprocessed files (done) | time=34ms
+[[1;34mINFO[m] 14:02:16.583 0 files ignored because of scm ignore settings
+[[1;34mINFO[m] 14:02:16.584 Loading plugins for detected languages
+[[1;34mINFO[m] 14:02:16.585 Load/download plugins
+[[1;34mINFO[m] 14:02:16.590 Load/download plugins (done) | time=5ms
+[[1;34mINFO[m] 14:02:16.677 Load project repositories
+[[1;34mINFO[m] 14:02:16.780 Load metrics repository
+[[1;34mINFO[m] 14:02:16.794 Load metrics repository (done) | time=14ms
+[[1;34mINFO[m] 14:02:16.748 Load project repositories (done) | time=71ms
+[[1;34mINFO[m] 14:02:16.765 Indexing files...
+[[1;34mINFO[m] 14:02:16.765 Project configuration:
+[[1;34mINFO[m] 14:02:16.771 3 files indexed (done) | time=6ms
+[[1;34mINFO[m] 14:02:16.772 Quality profile for java: Sonar way
+[[1;34mINFO[m] 14:02:16.772 Quality profile for xml: Sonar way
+[[1;34mINFO[m] 14:02:16.772 ------------- Run sensors on module Hello-Devops
+[[1;34mINFO[m] 14:02:16.857 Load metrics repository
+[[1;34mINFO[m] 14:02:16.868 Load metrics repository (done) | time=11ms
+[[1;34mINFO[m] 14:02:17.320 Sensor JavaSensor [java]
+[[1;34mINFO[m] 14:02:17.323 Configured Java source version (sonar.java.source): 21, preview features enabled (sonar.java.enablePreview): false
+[[1;34mINFO[m] 14:02:17.335 Server-side caching is enabled. The Java analyzer will not try to leverage data from a previous analysis.
+[[1;34mINFO[m] 14:02:17.336 Using ECJ batch to parse 1 Main java source files with batch size 420 KB.
+[[1;34mINFO[m] 14:02:17.517 Starting batch processing.
+[[1;34mINFO[m] 14:02:17.429 Sensor JavaSensor [java]
+[[1;34mINFO[m] 14:02:17.432 Configured Java source version (sonar.java.source): 21, preview features enabled (sonar.java.enablePreview): false
+[[1;34mINFO[m] 14:02:17.444 Server-side caching is enabled. The Java analyzer will not try to leverage data from a previous analysis.
+[[1;34mINFO[m] 14:02:17.445 Using ECJ batch to parse 1 Main java source files with batch size 420 KB.
+[[1;34mINFO[m] 14:02:17.791 The Java analyzer cannot skip unchanged files in this context. A full analysis is performed for all files.
+[[1;34mINFO[m] 14:02:17.619 Starting batch processing.
+[[1;34mINFO[m] 14:02:18.015 100% analyzed
+[[1;34mINFO[m] 14:02:18.015 Batch processing: Done.
+[[1;34mINFO[m] 14:02:18.020 Did not optimize analysis for any files, performed a full analysis for all 1 files.
+[[1;34mINFO[m] 14:02:18.021 Using ECJ batch to parse 1 Test java source files with batch size 420 KB.
+[[1;34mINFO[m] 14:02:18.023 Starting batch processing.
+[[1;34mINFO[m] 14:02:17.887 The Java analyzer cannot skip unchanged files in this context. A full analysis is performed for all files.
+[[1;34mINFO[m] 14:02:18.141 100% analyzed
+[[1;34mINFO[m] 14:02:18.142 Batch processing: Done.
+[[1;34mINFO[m] 14:02:18.143 Did not optimize analysis for any files, performed a full analysis for all 1 files.
+[[1;34mINFO[m] 14:02:18.144 Using ECJ batch to parse 1 Test java source files with batch size 420 KB.
+[[1;34mINFO[m] 14:02:18.146 Starting batch processing.
+[[1;34mINFO[m] 14:02:18.218 100% analyzed
+[[1;34mINFO[m] 14:02:18.219 Batch processing: Done.
+[[1;34mINFO[m] 14:02:18.223 Did not optimize analysis for any files, performed a full analysis for all 1 files.
+[[1;34mINFO[m] 14:02:18.223 No "Generated" source files to scan.
+[[1;34mINFO[m] 14:02:18.224 Sensor JavaSensor [java] (done) | time=795ms
+[[1;34mINFO[m] 14:02:18.224 Sensor SurefireSensor [java]
+[[1;34mINFO[m] 14:02:18.225 parsing [/home/jenkins/agent/workspace/lesson27/lesson26/Hello-Devops/target/surefire-reports]
+[[1;34mINFO[m] 14:02:18.282 Sensor SurefireSensor [java] (done) | time=57ms
+[[1;34mINFO[m] 14:02:18.282 Sensor XML Sensor [xml]
+[[1;34mINFO[m] 14:02:18.286 1 source file to be analyzed
+[[1;34mINFO[m] 14:02:18.082 100% analyzed
+[[1;34mINFO[m] 14:02:18.082 Batch processing: Done.
+[[1;34mINFO[m] 14:02:18.083 Did not optimize analysis for any files, performed a full analysis for all 1 files.
+[[1;34mINFO[m] 14:02:18.083 No "Generated" source files to scan.
+[[1;34mINFO[m] 14:02:18.084 Sensor JavaSensor [java] (done) | time=764ms
+[[1;34mINFO[m] 14:02:18.084 Sensor SurefireSensor [java]
+[[1;34mINFO[m] 14:02:18.084 parsing [/home/jenkins/agent/workspace/lesson27/lesson26/simple-java-maven-app/target/surefire-reports]
+[[1;34mINFO[m] 14:02:18.120 Sensor SurefireSensor [java] (done) | time=36ms
+[[1;34mINFO[m] 14:02:18.120 Sensor XML Sensor [xml]
+[[1;34mINFO[m] 14:02:18.124 1 source file to be analyzed
+[[1;34mINFO[m] 14:02:18.250 1/1 source file has been analyzed
+[[1;34mINFO[m] 14:02:18.250 Sensor XML Sensor [xml] (done) | time=129ms
+[[1;34mINFO[m] 14:02:18.250 Sensor JaCoCo XML Report Importer [jacoco]
+[[1;34mINFO[m] 14:02:18.252 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+[[1;34mINFO[m] 14:02:18.252 No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+[[1;34mINFO[m] 14:02:18.253 Sensor JaCoCo XML Report Importer [jacoco] (done) | time=2ms
+[[1;34mINFO[m] 14:02:18.253 Sensor IaC hadolint report Sensor [iac]
+[[1;34mINFO[m] 14:02:18.253 Sensor IaC hadolint report Sensor [iac] (done) | time=0ms
+[[1;34mINFO[m] 14:02:18.253 Sensor Java Config Sensor [iac]
+[[1;34mINFO[m] 14:02:18.260 There are no files to be analyzed for the Java language
+[[1;34mINFO[m] 14:02:18.260 Sensor Java Config Sensor [iac] (done) | time=6ms
+[[1;34mINFO[m] 14:02:18.260 Sensor IaC Docker Sensor [iac]
+[[1;34mINFO[m] 14:02:18.260 There are no files to be analyzed for the Docker language
+[[1;34mINFO[m] 14:02:18.260 Sensor IaC Docker Sensor [iac] (done) | time=0ms
+[[1;34mINFO[m] 14:02:18.260 Sensor TextAndSecretsSensor [text]
+[[1;34mINFO[m] 14:02:18.281 Available processors: 8
+[[1;34mINFO[m] 14:02:18.281 Using 8 threads for analysis.
+[[1;34mINFO[m] 14:02:18.510 Start fetching files for the text and secrets analysis
+[[1;34mINFO[m] 14:02:18.515 Using Git CLI to retrieve dirty files
+[[1;34mINFO[m] 14:02:18.523 Retrieving language associated files and files included via "sonar.text.inclusions" that are tracked by git
+[[1;34mINFO[m] 14:02:18.523 Starting the text and secrets analysis
+[[1;34mINFO[m] 14:02:18.525 3 source files to be analyzed for the text and secrets analysis
+[[1;34mINFO[m] 14:02:18.531 3/3 source files have been analyzed for the text and secrets analysis
+[[1;34mINFO[m] 14:02:18.533 Sensor TextAndSecretsSensor [text] (done) | time=273ms
+[[1;34mINFO[m] 14:02:18.537 ------------- Run sensors on project
+[[1;34mINFO[m] 14:02:18.398 1/1 source file has been analyzed
+[[1;34mINFO[m] 14:02:18.399 Sensor XML Sensor [xml] (done) | time=116ms
+[[1;34mINFO[m] 14:02:18.399 Sensor JaCoCo XML Report Importer [jacoco]
+[[1;34mINFO[m] 14:02:18.400 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+[[1;34mINFO[m] 14:02:18.401 No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+[[1;34mINFO[m] 14:02:18.401 Sensor JaCoCo XML Report Importer [jacoco] (done) | time=1ms
+[[1;34mINFO[m] 14:02:18.401 Sensor IaC hadolint report Sensor [iac]
+[[1;34mINFO[m] 14:02:18.401 Sensor IaC hadolint report Sensor [iac] (done) | time=0ms
+[[1;34mINFO[m] 14:02:18.401 Sensor Java Config Sensor [iac]
+[[1;34mINFO[m] 14:02:18.405 There are no files to be analyzed for the Java language
+[[1;34mINFO[m] 14:02:18.405 Sensor Java Config Sensor [iac] (done) | time=4ms
+[[1;34mINFO[m] 14:02:18.405 Sensor IaC Docker Sensor [iac]
+[[1;34mINFO[m] 14:02:18.406 There are no files to be analyzed for the Docker language
+[[1;34mINFO[m] 14:02:18.406 Sensor IaC Docker Sensor [iac] (done) | time=0ms
+[[1;34mINFO[m] 14:02:18.406 Sensor TextAndSecretsSensor [text]
+[[1;34mINFO[m] 14:02:18.426 Available processors: 8
+[[1;34mINFO[m] 14:02:18.426 Using 8 threads for analysis.
+[[1;34mINFO[m] 14:02:18.645 Start fetching files for the text and secrets analysis
+[[1;34mINFO[m] 14:02:18.651 Using Git CLI to retrieve dirty files
+[[1;34mINFO[m] 14:02:18.659 Retrieving language associated files and files included via "sonar.text.inclusions" that are tracked by git
+[[1;34mINFO[m] 14:02:18.659 Starting the text and secrets analysis
+[[1;34mINFO[m] 14:02:18.661 3 source files to be analyzed for the text and secrets analysis
+[[1;34mINFO[m] 14:02:18.667 3/3 source files have been analyzed for the text and secrets analysis
+[[1;34mINFO[m] 14:02:18.668 Sensor TextAndSecretsSensor [text] (done) | time=262ms
+[[1;34mINFO[m] 14:02:18.672 ------------- Run sensors on project
+[[1;34mINFO[m] 14:02:18.771 Sensor JaCoCo Aggregate XML Report Importer [jacoco]
+[[1;34mINFO[m] 14:02:18.771 Sensor JaCoCo Aggregate XML Report Importer [jacoco] (done) | time=0ms
+[[1;34mINFO[m] 14:02:18.771 Sensor JavaProjectSensor [java]
+[[1;34mINFO[m] 14:02:18.773 Sensor JavaProjectSensor [java] (done) | time=1ms
+[[1;34mINFO[m] 14:02:18.773 Sensor Zero Coverage Sensor
+[[1;34mINFO[m] 14:02:18.776 Sensor Zero Coverage Sensor (done) | time=3ms
+[[1;34mINFO[m] 14:02:18.776 Sensor Java CPD Block Indexer
+[[1;34mINFO[m] 14:02:18.783 Sensor Java CPD Block Indexer (done) | time=6ms
+[[1;34mINFO[m] 14:02:18.783 ------------- Gather SCA dependencies on project
+[[1;34mINFO[m] 14:02:18.786 Dependency analysis skipped
+[[1;34mINFO[m] 14:02:18.792 CPD Executor 1 file had no CPD blocks
+[[1;34mINFO[m] 14:02:18.792 CPD Executor Calculating CPD for 0 files
+[[1;34mINFO[m] 14:02:18.792 CPD Executor CPD calculation finished (done) | time=0ms
+[[1;34mINFO[m] 14:02:18.795 SCM revision ID '825316576ce06abd7eee880d2fb94163138f8158'
+[[1;34mINFO[m] 14:02:18.639 Sensor JaCoCo Aggregate XML Report Importer [jacoco]
+[[1;34mINFO[m] 14:02:18.639 Sensor JaCoCo Aggregate XML Report Importer [jacoco] (done) | time=0ms
+[[1;34mINFO[m] 14:02:18.639 Sensor JavaProjectSensor [java]
+[[1;34mINFO[m] 14:02:18.640 Sensor JavaProjectSensor [java] (done) | time=1ms
+[[1;34mINFO[m] 14:02:18.641 Sensor Zero Coverage Sensor
+[[1;34mINFO[m] 14:02:18.644 Sensor Zero Coverage Sensor (done) | time=3ms
+[[1;34mINFO[m] 14:02:18.644 Sensor Java CPD Block Indexer
+[[1;34mINFO[m] 14:02:18.650 Sensor Java CPD Block Indexer (done) | time=6ms
+[[1;34mINFO[m] 14:02:18.650 ------------- Gather SCA dependencies on project
+[[1;34mINFO[m] 14:02:18.654 Dependency analysis skipped
+[[1;34mINFO[m] 14:02:18.659 CPD Executor 1 file had no CPD blocks
+[[1;34mINFO[m] 14:02:18.659 CPD Executor Calculating CPD for 0 files
+[[1;34mINFO[m] 14:02:18.660 CPD Executor CPD calculation finished (done) | time=1ms
+[[1;34mINFO[m] 14:02:18.663 SCM revision ID '825316576ce06abd7eee880d2fb94163138f8158'
+[[1;34mINFO[m] 14:02:18.719 Analysis report generated in 54ms, dir size=280.2 kB
+[[1;34mINFO[m] 14:02:18.736 Analysis report compressed in 15ms, zip size=34.5 kB
+[[1;34mINFO[m] 14:02:18.751 Analysis report uploaded in 14ms
+[[1;34mINFO[m] 14:02:18.752 ANALYSIS SUCCESSFUL, you can find the results at: http://10.10.1.51:9000/dashboard?id=simple-java-maven-app
+[[1;34mINFO[m] 14:02:18.752 Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+[[1;34mINFO[m] 14:02:18.752 More about the report processing at http://10.10.1.51:9000/api/ce/task?id=fbb00020-8c9b-4f36-8750-f022e52ebf32
+[[1;34mINFO[m] 14:02:18.758 Analysis total time: 3.039 s
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  5.694 s
+[[1;34mINFO[m] Finished at: 2026-07-08T14:02:18Z
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[Pipeline] }
+[Pipeline] // withSonarQubeEnv
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (SonarQube Quality Gate)
+[Pipeline] timeout
+Timeout set to expire in 5 min 0 sec
+[Pipeline] {
+[Pipeline] waitForQualityGate
+Checking status of SonarQube task 'fbb00020-8c9b-4f36-8750-f022e52ebf32' on server 'SonarServer'
+SonarQube task 'fbb00020-8c9b-4f36-8750-f022e52ebf32' status is 'PENDING'
+[[1;34mINFO[m] 14:02:18.852 Analysis report generated in 53ms, dir size=280.0 kB
+[[1;34mINFO[m] 14:02:18.868 Analysis report compressed in 16ms, zip size=34.5 kB
+[[1;34mINFO[m] 14:02:18.882 Analysis report uploaded in 14ms
+[[1;34mINFO[m] 14:02:18.883 ANALYSIS SUCCESSFUL, you can find the results at: http://10.10.1.51:9000/dashboard?id=Hello-Devops
+[[1;34mINFO[m] 14:02:18.883 Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+[[1;34mINFO[m] 14:02:18.883 More about the report processing at http://10.10.1.51:9000/api/ce/task?id=61b0f0b6-c1b9-4419-a909-51ac583dfd25
+[[1;34mINFO[m] 14:02:18.889 Analysis total time: 3.130 s
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  5.827 s
+[[1;34mINFO[m] Finished at: 2026-07-08T14:02:18Z
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[Pipeline] }
+[Pipeline] // withSonarQubeEnv
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (SonarQube Quality Gate)
+[Pipeline] timeout
+Timeout set to expire in 5 min 0 sec
+[Pipeline] {
+[Pipeline] waitForQualityGate
+Checking status of SonarQube task '61b0f0b6-c1b9-4419-a909-51ac583dfd25' on server 'SonarServer'
+SonarQube task '61b0f0b6-c1b9-4419-a909-51ac583dfd25' status is 'PENDING'
+SonarQube task 'fbb00020-8c9b-4f36-8750-f022e52ebf32' status is 'SUCCESS'
+SonarQube task 'fbb00020-8c9b-4f36-8750-f022e52ebf32' completed. Quality gate is 'ERROR'
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+Failed in branch simple-java-maven-app
+SonarQube task '61b0f0b6-c1b9-4419-a909-51ac583dfd25' status is 'SUCCESS'
+SonarQube task '61b0f0b6-c1b9-4419-a909-51ac583dfd25' completed. Quality gate is 'ERROR'
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+Failed in branch Hello-Devops
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: Pipeline aborted due to quality gate failure: ERROR
+Finished: FAILURE
