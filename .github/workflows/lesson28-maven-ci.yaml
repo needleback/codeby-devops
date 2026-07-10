@@ -1,0 +1,73 @@
+name: lesson28 Maven CI/CD
+
+on:
+  push:
+    branches: [ lesson28 ]
+    paths:
+      - "lesson28/**"
+
+env:
+  LESSON_PATH: lesson28
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        app:
+          - hello-world
+          - hello-jenkins
+          - hello-devops
+
+    defaults:
+      run:
+        working-directory: ${{ env.LESSON_PATH }}/${{ matrix.app }}
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+          cache: maven
+
+
+      - name: Build project with Maven
+        run: mvn -B package --file pom.xml -DskipTests
+
+
+      - name: Run tests
+        run: mvn test
+
+
+      - name: Upload jar artifact
+        run: mkdir staging && cp target/*.jar staging
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Package-${{ matrix.app }}
+          path: ${{ env.LESSON_PATH }}/${{ matrix.app }}/staging
+
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ env.LESSON_PATH }}/${{ matrix.app }}
+          file: ${{ env.LESSON_PATH }}/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/${{ matrix.app }}:latest
