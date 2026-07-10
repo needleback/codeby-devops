@@ -1,0 +1,141 @@
+pipeline {
+    agent { label 'maven-agent-01' }
+
+
+    environment {
+        LESSON_DIR = 'lesson26'
+        APP1 = 'simple-java-maven-app'
+        APP1_DIR = "${env.LESSON_DIR}/${env.APP1}"
+        APP2 = 'Hello-Devops'
+        APP2_DIR = "${env.LESSON_DIR}/${env.APP2}"
+        APP3 = 'Hello-Jenkins'
+        APP3_DIR = "${env.LESSON_DIR}/${env.APP3}"
+    }
+
+
+    stages {
+        stage('Identify changes') {
+            steps {
+                script {
+                    def changedFiles = sh(
+                        script: "git diff --name-only HEAD~1 HEAD",
+                        returnStdout: true
+                    ).trim().split("\n")
+
+                    env.APP1_CHANGED = changedFiles.any { it.startsWith(env.APP1_DIR) }.toString()
+                    env.APP2_CHANGED = changedFiles.any { it.startsWith(env.APP2_DIR) }.toString()
+                    env.APP3_CHANGED = changedFiles.any { it.startsWith(env.APP3_DIR) }.toString()
+
+                    echo "app1: ${env.APP1_CHANGED}"
+                    echo "app2: ${env.APP2_CHANGED}"
+                    echo "app3: ${env.APP3_CHANGED}"
+                }
+            }
+        }
+
+
+        stage('Applications') {
+            parallel {
+
+                stage('simple-java-maven-app'){
+                    when {
+                        expression { env.APP1_CHANGED == 'true' }
+                    }
+                    stages {
+                        stage('Build') {
+                            steps {
+                                dir(env.APP1_DIR) {
+                                    sh 'mvn -B -DskipTests clean package'
+                                }
+                            }
+                        }
+                        stage('Test') {
+                            steps {
+                                dir(env.APP1_DIR) {
+                                    sh 'mvn test'
+                                }
+                            }
+                            post {
+                                always {
+                                    junit "${env.APP1_DIR}/target/surefire-reports/*.xml"
+                                }
+                            }
+                        }
+                        stage('Deliver') {
+                            steps {
+                                echo "Hello World!"
+                            }
+                        }
+                    }
+                }
+
+                stage('Hello-Devops'){
+                    when {
+                        expression { env.APP2_CHANGED == 'true' }
+                    }
+                    stages {
+                        stage('Build') {
+                            steps {
+                                dir(env.APP2_DIR) {
+                                    sh 'mvn -B -DskipTests clean package'
+                                }
+                            }
+                        }
+                        stage('Test') {
+                            steps {
+                                dir(env.APP2_DIR) {
+                                    sh 'mvn test'
+                                }
+                            }
+                            post {
+                                always {
+                                    junit "${env.APP2_DIR}/target/surefire-reports/*.xml"
+                                }
+                            }
+                        }
+                        stage('Deliver') {
+                            steps {
+                                echo "Hello World!"
+                            }
+                        }
+                    }
+                }
+
+                stage('Hello-Jenkins'){
+                    when {
+                        expression { env.APP3_CHANGED == 'true' }
+                    }
+                    stages {
+                        stage('Build') {
+                            steps {
+                                dir(env.APP3_DIR) {
+                                    sh 'mvn -B -DskipTests clean package'
+                                }
+                            }
+                        }
+                        stage('Test') {
+                            steps {
+                                dir(env.APP3_DIR) {
+                                    sh 'mvn test'
+                                }
+                            }
+                            post {
+                                always {
+                                    junit "${env.APP3_DIR}/target/surefire-reports/*.xml"
+                                }
+                            }
+                        }
+                        stage('Deliver') {
+                            steps {
+                                echo "Hello World!"
+                            }
+                        }
+                    }
+                }
+
+            } // parallel
+        } // stage('Applications')
+
+
+    } // stages
+} // pipeline
