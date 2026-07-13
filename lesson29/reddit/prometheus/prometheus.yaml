@@ -1,0 +1,64 @@
+global:
+  scrape_interval: '10s'
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets:
+        - 'prometheus:9090'
+
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets:
+        - 'cadvisor:8080'
+
+  - job_name: 'ui'
+    static_configs:
+      - targets:
+        - 'ui:9292'
+
+
+  - job_name: 'blackbox-ui'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+          - 'http://ui:9292/healthcheck'
+    relabel_configs:
+      - target_label: __param_target
+        source_labels: [__address__]
+      - target_label: instance
+        source_labels: [__param_target]
+      - target_label: __address__
+        replacement: blackbox:9115
+
+  - job_name: 'blackbox-post'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+          - 'http://post:5000/metrics'
+    relabel_configs:
+      - target_label: __param_target
+        source_labels: [__address__]
+      - target_label: instance
+        source_labels: [__param_target]
+      - target_label: __address__
+        replacement: blackbox:9115
+
+  - job_name: 'blackbox-comment'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+          - 'http://comment:9292/healthcheck'
+    relabel_configs:
+      - target_label: __param_target
+        source_labels: [__address__]
+      - target_label: instance
+        source_labels: [__param_target]
+      - target_label: __address__
+        replacement: blackbox:9115
