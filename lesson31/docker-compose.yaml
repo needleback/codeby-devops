@@ -1,0 +1,78 @@
+services:
+  post_db:
+    image: mongo:3.2
+    container_name: post_db
+    volumes:
+      - post_db:/data/db
+    networks:
+      - tracing
+
+  ui:
+    image: ${REGISTRY}/ui:${TAG}
+    container_name: ui
+    environment:
+      - POST_SERVICE_HOST=post
+      - POST_SERVICE_PORT=5000
+      - COMMENT_SERVICE_HOST=comment
+      - COMMENT_SERVICE_PORT=9292
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    depends_on:
+      - comment
+      - post
+    ports:
+      - 9292:9292/tcp
+    networks:
+      - tracing
+
+  comment:
+    image: ${REGISTRY}/comment:${TAG}
+    container_name: comment
+    environment:
+      - COMMENT_DATABASE_HOST=post_db
+      - COMMENT_DATABASE=comments
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    depends_on:
+      - post_db
+    networks:
+      - tracing
+
+  post:
+    image: ${REGISTRY}/post:${TAG}
+    container_name: post
+    environment:
+      - POST_DATABASE_HOST=post_db
+      - POST_DATABASE=posts
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    depends_on:
+      - post_db
+    ports:
+      - 5000:5000
+    networks:
+      - tracing
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - 9411:9411
+    networks:
+      - tracing
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - 9090:9090
+    volumes:
+      - './prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml'
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+    networks:
+      - tracing
+
+volumes:
+  post_db:
+
+networks:
+  tracing:
