@@ -1,0 +1,35 @@
+{
+  "title": "Reddit App IAC",
+  "panels": [
+    {
+      "title": "Общее число запросов к ui",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(path)(http_server_requests_total{path=~\"/|/new\"})",
+          "legendFormat": "{{path}}"
+        }
+      ]
+    },
+    {
+      "title": "Скорость изменения запросов к ui",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(path)(rate(http_server_requests_total{path=~\"/|/new\"}[5m]))",
+          "legendFormat": "{{path}}"
+        }
+      ]
+    },
+    {
+      "title": "90й процентиль времени ответа на зпросы",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.90,sum by(le,path)(rate(ui_request_response_time_bucket{path=~\"/|/new\"}[5m])))",
+          "legendFormat": "{{path}}"
+        }
+      ]
+    }
+  ]
+}
