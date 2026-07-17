@@ -1,0 +1,68 @@
+# Проблема: долгая загрузка при нажатии на пост.
+
+## 01-Zipkin
+Долго выполняется поиск поста по ID.
+
+<p align="center">
+  <img src="01-zipkin-db_find_single_post.png" width="800">
+</p>
+
+Долго выполняется спан `db_find_single_post` в сервисе `post`
+Среднее время выполнения около 3 секунд.
+
+(!) Предполагаем: долго обрабатывается запрос к БД.
+
+## 02-Prometheus
+Подключим prometheus, добавим сервис `post` - посмотрим какие есть логи.
+
+<p align="center">
+  <img src="02-prometheus-post_read_db_seconds.png" width="800">
+</p>
+
+В метрике Target `http://post:5000/metrics` видим:
+```
+post_read_db_seconds_count 1.0
+post_read_db_seconds_sum 0.0013129711151123047
+```
+Очевидно, что запрос к БД отрабатывает быстро, а тормозит обработка запроса.
+
+## 03-Python
+Заходим в docker контейнер `post`
+```bash
+docker exec -it post bash
+```
+Изучаем список файлов
+```bash
+ls -l
+```
+Рассмотрим подробнее файл `post_app.py` (используя имеющиеся инструменты)
+```bash
+cat -n post_app.py
+```
+
+<p align="center">
+  <img src="03-python-time_sleep.png" width="800">
+</p>
+
+В функции `find_post`, которая должна выполнять запрос к сервису `post_db` 
+добавлена пауза 3 секунды `time.sleep(3)` на строке 167.
+
+(!) Предполагаем: проблема в паузе.
+
+## 04-sed
+Проверяем предположение - удаляем строку номер 167:
+```bash
+sed -i '167d' post_app.py
+```
+
+## 05-Zipkin
+Перезагружаем контейнер
+```bash
+docker compose restart post
+```
+При нажатии на пост загрузка ускорилась.
+Показатели в Zipkin подтверждают ускорение.
+
+<p align="center">
+  <img src="05-zipkin-db_find_single_post.png" width="800">
+</p>
